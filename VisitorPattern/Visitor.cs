@@ -4,5 +4,6 @@ namespace VisitorPattern
     {
         void AddOrder(OnlineOrder order);
         void AddOrder(OfflineOrder order);
+        void AddOrder(AnotherTypeOrder order);
     }
 }

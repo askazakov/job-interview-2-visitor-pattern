@@ -25,8 +25,12 @@ namespace VisitorPattern
         {
             Console.WriteLine("Offline order added");
         }
-    }
 
+        public void AddOrder(AnotherTypeOrder order)
+        {
+            Console.WriteLine("JustAnotherOrder added");
+        }
+    }
 
     public static class Program
     {

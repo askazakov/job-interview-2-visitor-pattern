@@ -20,4 +20,12 @@
             visitor.AddOrder(this);
         }
     }
+
+    public class AnotherTypeOrder : Order
+    {
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.AddOrder(this);
+        }
+    }
 }
