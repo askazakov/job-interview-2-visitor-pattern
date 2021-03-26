@@ -7,33 +7,39 @@ namespace VisitorPattern
     {
     }
 
-    public static class Program
+    public class DbConnectionVisitor : IVisitor
     {
-        private static void AddOnlineOrder(OnlineOrder order, DbConnection dbConnection)
+        private readonly DbConnection _dbConnection;
+
+        public DbConnectionVisitor(DbConnection dbConnection)
+        {
+            _dbConnection = dbConnection;
+        }
+
+        public void AddOrder(OnlineOrder order)
         {
             Console.WriteLine("Online order added");
         }
 
-        private static void AddOfflineOrder(OfflineOrder order, DbConnection dbConnection)
+        public void AddOrder(OfflineOrder order)
         {
             Console.WriteLine("Offline order added");
         }
+    }
 
+
+    public static class Program
+    {
         public static void Main()
         {
             var dbConnection = new DbConnection();
             var service = new Service();
+            var visitor = new DbConnectionVisitor(dbConnection);
+
             foreach (var _ in Enumerable.Range(0, 10))
             {
                 var order = service.GetOrder();
-                if (order.GetType().Name == "OnlineOrder")
-                {
-                    AddOnlineOrder((OnlineOrder) order, dbConnection);
-                }
-                else
-                {
-                    AddOfflineOrder((OfflineOrder) order, dbConnection);
-                }
+                order.Accept(visitor);
             }
         }
     }
